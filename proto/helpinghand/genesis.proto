@@ -1,0 +1,14 @@
+syntax = "proto3";
+package blockchaingroup2.helpinghand.helpinghand;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "helpinghand/task.proto";
+
+option go_package = "gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types";
+
+// GenesisState defines the capability module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated Task taskList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+}
+
