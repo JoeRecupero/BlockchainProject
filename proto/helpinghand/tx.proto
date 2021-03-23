@@ -8,12 +8,43 @@ option go_package = "gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghan
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateCompletion(MsgCreateCompletion) returns (MsgCreateCompletionResponse);
+  rpc UpdateCompletion(MsgUpdateCompletion) returns (MsgUpdateCompletionResponse);
+  rpc DeleteCompletion(MsgDeleteCompletion) returns (MsgDeleteCompletionResponse);
   rpc CreateTask(MsgCreateTask) returns (MsgCreateTaskResponse);
   rpc UpdateTask(MsgUpdateTask) returns (MsgUpdateTaskResponse);
   rpc DeleteTask(MsgDeleteTask) returns (MsgDeleteTaskResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateCompletion {
+  string creator = 1;
+  int32 taskID = 2;
+  string imageURL = 3;
+  string imageHash = 4;
+}
+
+message MsgCreateCompletionResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateCompletion {
+  string creator = 1;
+  uint64 id = 2;
+  int32 taskID = 3;
+  string imageURL = 4;
+  string imageHash = 5;
+}
+
+message MsgUpdateCompletionResponse { }
+
+message MsgDeleteCompletion {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteCompletionResponse { }
+
 message MsgCreateTask {
   string creator = 1;
   string title = 2;

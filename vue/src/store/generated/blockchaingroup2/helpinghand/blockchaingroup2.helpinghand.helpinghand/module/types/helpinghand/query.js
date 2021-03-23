@@ -1,9 +1,272 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
-import { Task } from "../helpinghand/task";
+import { Completion } from "../helpinghand/completion";
 import { PageRequest, PageResponse, } from "../cosmos/base/query/v1beta1/pagination";
+import { Task } from "../helpinghand/task";
 export const protobufPackage = "blockchaingroup2.helpinghand.helpinghand";
+const baseQueryGetCompletionRequest = { id: 0 };
+export const QueryGetCompletionRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetCompletionRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetCompletionRequest,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetCompletionRequest,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+};
+const baseQueryGetCompletionResponse = {};
+export const QueryGetCompletionResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.Completion !== undefined) {
+            Completion.encode(message.Completion, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetCompletionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Completion = Completion.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetCompletionResponse,
+        };
+        if (object.Completion !== undefined && object.Completion !== null) {
+            message.Completion = Completion.fromJSON(object.Completion);
+        }
+        else {
+            message.Completion = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.Completion !== undefined &&
+            (obj.Completion = message.Completion
+                ? Completion.toJSON(message.Completion)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetCompletionResponse,
+        };
+        if (object.Completion !== undefined && object.Completion !== null) {
+            message.Completion = Completion.fromPartial(object.Completion);
+        }
+        else {
+            message.Completion = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllCompletionRequest = {};
+export const QueryAllCompletionRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllCompletionRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllCompletionRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllCompletionRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllCompletionResponse = {};
+export const QueryAllCompletionResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Completion) {
+            Completion.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllCompletionResponse,
+        };
+        message.Completion = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Completion.push(Completion.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllCompletionResponse,
+        };
+        message.Completion = [];
+        if (object.Completion !== undefined && object.Completion !== null) {
+            for (const e of object.Completion) {
+                message.Completion.push(Completion.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Completion) {
+            obj.Completion = message.Completion.map((e) => e ? Completion.toJSON(e) : undefined);
+        }
+        else {
+            obj.Completion = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllCompletionResponse,
+        };
+        message.Completion = [];
+        if (object.Completion !== undefined && object.Completion !== null) {
+            for (const e of object.Completion) {
+                message.Completion.push(Completion.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
 const baseQueryGetTaskRequest = { id: 0 };
 export const QueryGetTaskRequest = {
     encode(message, writer = Writer.create()) {
@@ -243,6 +506,16 @@ export const QueryAllTaskResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    Completion(request) {
+        const data = QueryGetCompletionRequest.encode(request).finish();
+        const promise = this.rpc.request("blockchaingroup2.helpinghand.helpinghand.Query", "Completion", data);
+        return promise.then((data) => QueryGetCompletionResponse.decode(new Reader(data)));
+    }
+    CompletionAll(request) {
+        const data = QueryAllCompletionRequest.encode(request).finish();
+        const promise = this.rpc.request("blockchaingroup2.helpinghand.helpinghand.Query", "CompletionAll", data);
+        return promise.then((data) => QueryAllCompletionResponse.decode(new Reader(data)));
     }
     Task(request) {
         const data = QueryGetTaskRequest.encode(request).finish();

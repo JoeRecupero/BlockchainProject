@@ -1,9 +1,12 @@
+import { Completion } from "../helpinghand/completion";
 import { Task } from "../helpinghand/task";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "blockchaingroup2.helpinghand.helpinghand";
 /** GenesisState defines the capability module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    completionList: Completion[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     taskList: Task[];
 }
 export declare const GenesisState: {

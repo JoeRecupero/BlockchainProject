@@ -25,3 +25,8 @@ const (
 	TaskKey      = "Task-value-"
 	TaskCountKey = "Task-count-"
 )
+
+const (
+	CompletionKey      = "Completion-value-"
+	CompletionCountKey = "Completion-count-"
+)

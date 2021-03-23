@@ -140,6 +140,34 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryCompletionAll
+         * @request GET:/blockchaingroup2/helpinghand/helpinghand/completion
+         */
+        this.queryCompletionAll = (query, params = {}) => this.request({
+            path: `/blockchaingroup2/helpinghand/helpinghand/completion`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryCompletion
+         * @summary this line is used by starport scaffolding # 2
+         * @request GET:/blockchaingroup2/helpinghand/helpinghand/completion/{id}
+         */
+        this.queryCompletion = (id, params = {}) => this.request({
+            path: `/blockchaingroup2/helpinghand/helpinghand/completion/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryTaskAll
          * @request GET:/blockchaingroup2/helpinghand/helpinghand/task
          */
@@ -155,7 +183,6 @@ export class Api extends HttpClient {
          *
          * @tags Query
          * @name QueryTask
-         * @summary this line is used by starport scaffolding # 2
          * @request GET:/blockchaingroup2/helpinghand/helpinghand/task/{id}
          */
         this.queryTask = (id, params = {}) => this.request({

@@ -11,7 +11,8 @@ const DefaultIndex uint64 = 1
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # genesis/types/default
-		TaskList: []*Task{},
+		CompletionList: []*Completion{},
+		TaskList:       []*Task{},
 	}
 }
 
@@ -19,6 +20,15 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in completion
+	completionIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.CompletionList {
+		if _, ok := completionIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for completion")
+		}
+		completionIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in task
 	taskIdMap := make(map[uint64]bool)
 
