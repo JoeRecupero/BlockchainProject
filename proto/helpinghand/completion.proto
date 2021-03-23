@@ -1,0 +1,34 @@
+syntax = "proto3";
+package blockchaingroup2.helpinghand.helpinghand;
+
+option go_package = "gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types";
+
+import "gogoproto/gogo.proto";
+
+message Completion {
+  string creator = 1;
+  string id = 2;
+  string taskID = 3; 
+  string imageURL = 4; 
+  string imageHash = 5; 
+}
+
+message MsgCreateCompletion {
+  string creator = 1;
+  string taskID = 2; 
+  string imageURL = 3; 
+  string imageHash = 4; 
+}
+
+message MsgUpdateCompletion {
+  string creator = 1;
+  string id = 2;
+  string taskID = 3; 
+  string imageURL = 4; 
+  string imageHash = 5; 
+}
+
+message MsgDeleteCompletion {
+  string creator = 1;
+  string id = 2;
+}

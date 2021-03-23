@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the completion
+	for _, elem := range genState.CompletionList {
+		k.SetCompletion(ctx, *elem)
+	}
+
+	// Set completion count
+	k.SetCompletionCount(ctx, int64(len(genState.CompletionList)))
+
 	// Set all the task
 	for _, elem := range genState.TaskList {
 		k.SetTask(ctx, *elem)
@@ -25,6 +33,13 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all completion
+	completionList := k.GetAllCompletion(ctx)
+	for _, elem := range completionList {
+		elem := elem
+		genesis.CompletionList = append(genesis.CompletionList, &elem)
+	}
+
 	// Get all task
 	taskList := k.GetAllTask(ctx)
 	for _, elem := range taskList {

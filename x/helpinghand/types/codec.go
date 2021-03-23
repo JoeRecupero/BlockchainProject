@@ -9,6 +9,10 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCreateCompletion{}, "helpinghand/CreateCompletion", nil)
+	cdc.RegisterConcrete(&MsgUpdateCompletion{}, "helpinghand/UpdateCompletion", nil)
+	cdc.RegisterConcrete(&MsgDeleteCompletion{}, "helpinghand/DeleteCompletion", nil)
+
 	cdc.RegisterConcrete(&MsgCreateTask{}, "helpinghand/CreateTask", nil)
 	cdc.RegisterConcrete(&MsgUpdateTask{}, "helpinghand/UpdateTask", nil)
 	cdc.RegisterConcrete(&MsgDeleteTask{}, "helpinghand/DeleteTask", nil)
@@ -17,6 +21,11 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateCompletion{},
+		&MsgUpdateCompletion{},
+		&MsgDeleteCompletion{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateTask{},
 		&MsgUpdateTask{},

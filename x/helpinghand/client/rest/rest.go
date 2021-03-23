@@ -17,10 +17,16 @@ func RegisterRoutes(clientCtx client.Context, r *mux.Router) {
 	registerQueryRoutes(clientCtx, r)
 	registerTxHandlers(clientCtx, r)
 
+	registerQueryRoutes(clientCtx, r)
+	registerTxHandlers(clientCtx, r)
+
 }
 
 func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 3
+	r.HandleFunc("/helpinghand/completions/{id}", getCompletionHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/helpinghand/completions", listCompletionHandler(clientCtx)).Methods("GET")
+
 	r.HandleFunc("/helpinghand/tasks/{id}", getTaskHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/helpinghand/tasks", listTaskHandler(clientCtx)).Methods("GET")
 
@@ -28,6 +34,10 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 
 func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 4
+	r.HandleFunc("/helpinghand/completions", createCompletionHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/helpinghand/completions/{id}", updateCompletionHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/helpinghand/completions/{id}", deleteCompletionHandler(clientCtx)).Methods("POST")
+
 	r.HandleFunc("/helpinghand/tasks", createTaskHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/helpinghand/tasks/{id}", updateTaskHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/helpinghand/tasks/{id}", deleteTaskHandler(clientCtx)).Methods("POST")

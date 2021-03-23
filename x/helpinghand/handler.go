@@ -18,6 +18,15 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 
 		switch msg := msg.(type) {
 		// this line is used by starport scaffolding # 1
+		case *types.MsgCreateCompletion:
+			return handleMsgCreateCompletion(ctx, k, msg)
+
+		case *types.MsgUpdateCompletion:
+			return handleMsgUpdateCompletion(ctx, k, msg)
+
+		case *types.MsgDeleteCompletion:
+			return handleMsgDeleteCompletion(ctx, k, msg)
+
 		case *types.MsgCreateTask:
 			res, err := msgServer.CreateTask(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
