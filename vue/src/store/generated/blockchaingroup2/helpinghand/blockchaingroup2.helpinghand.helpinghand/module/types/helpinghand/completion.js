@@ -8,7 +8,10 @@ const baseCompletion = {
     taskID: 0,
     imageURL: "",
     imageHash: "",
+<<<<<<< HEAD
     status: "",
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 };
 export const Completion = {
     encode(message, writer = Writer.create()) {
@@ -27,9 +30,12 @@ export const Completion = {
         if (message.imageHash !== "") {
             writer.uint32(42).string(message.imageHash);
         }
+<<<<<<< HEAD
         if (message.status !== "") {
             writer.uint32(50).string(message.status);
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return writer;
     },
     decode(input, length) {
@@ -54,9 +60,12 @@ export const Completion = {
                 case 5:
                     message.imageHash = reader.string();
                     break;
+<<<<<<< HEAD
                 case 6:
                     message.status = reader.string();
                     break;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -96,12 +105,15 @@ export const Completion = {
         else {
             message.imageHash = "";
         }
+<<<<<<< HEAD
         if (object.status !== undefined && object.status !== null) {
             message.status = String(object.status);
         }
         else {
             message.status = "";
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return message;
     },
     toJSON(message) {
@@ -111,7 +123,10 @@ export const Completion = {
         message.taskID !== undefined && (obj.taskID = message.taskID);
         message.imageURL !== undefined && (obj.imageURL = message.imageURL);
         message.imageHash !== undefined && (obj.imageHash = message.imageHash);
+<<<<<<< HEAD
         message.status !== undefined && (obj.status = message.status);
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return obj;
     },
     fromPartial(object) {
@@ -146,12 +161,15 @@ export const Completion = {
         else {
             message.imageHash = "";
         }
+<<<<<<< HEAD
         if (object.status !== undefined && object.status !== null) {
             message.status = object.status;
         }
         else {
             message.status = "";
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return message;
     },
 };

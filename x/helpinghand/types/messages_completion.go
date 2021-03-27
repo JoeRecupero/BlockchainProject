@@ -13,7 +13,10 @@ func NewMsgCreateCompletion(creator string, taskID int32, imageURL string, image
 		TaskID:    taskID,
 		ImageURL:  imageURL,
 		ImageHash: imageHash,
+<<<<<<< HEAD
 		Status:    "Pending",
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 	}
 }
 
@@ -48,14 +51,21 @@ func (msg *MsgCreateCompletion) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateCompletion{}
 
+<<<<<<< HEAD
 func NewMsgUpdateCompletion(creator string, id uint64, taskID int32, imageURL string, imageHash string, status string) *MsgUpdateCompletion {
+=======
+func NewMsgUpdateCompletion(creator string, id uint64, taskID int32, imageURL string, imageHash string) *MsgUpdateCompletion {
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 	return &MsgUpdateCompletion{
 		Id:        id,
 		Creator:   creator,
 		TaskID:    taskID,
 		ImageURL:  imageURL,
 		ImageHash: imageHash,
+<<<<<<< HEAD
 		Status:    status,
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 	}
 }
 

@@ -6,7 +6,10 @@ export interface MsgCreateCompletion {
     taskID: number;
     imageURL: string;
     imageHash: string;
+<<<<<<< HEAD
     status: string;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 }
 export interface MsgCreateCompletionResponse {
     id: number;
@@ -17,7 +20,10 @@ export interface MsgUpdateCompletion {
     taskID: number;
     imageURL: string;
     imageHash: string;
+<<<<<<< HEAD
     status: string;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 }
 export interface MsgUpdateCompletionResponse {
 }

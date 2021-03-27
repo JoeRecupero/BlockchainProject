@@ -22,7 +22,10 @@ message MsgCreateCompletion {
   int32 taskID = 2;
   string imageURL = 3;
   string imageHash = 4;
+<<<<<<< HEAD
   string status = 5;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 }
 
 message MsgCreateCompletionResponse {
@@ -35,7 +38,10 @@ message MsgUpdateCompletion {
   int32 taskID = 3;
   string imageURL = 4;
   string imageHash = 5;
+<<<<<<< HEAD
   string status = 6;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 }
 
 message MsgUpdateCompletionResponse { }

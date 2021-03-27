@@ -2,6 +2,7 @@ import { txClient, queryClient } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
+import { Completion } from "./module/types/helpinghand/completion"
 import { Task } from "./module/types/helpinghand/task"
 import { Completion } from "./module/types/helpinghand/completion"
 
@@ -37,6 +38,7 @@ const getDefaultState = () => {
         TaskAll: {},
         
         _Structure: {
+            Completion: getStructure(Completion.fromPartial({})),
             Task: getStructure(Task.fromPartial({})),
             Completion: getStructure(Completion.fromPartial({})),
             
@@ -190,17 +192,17 @@ export default {
 			}
 		},
 		
-		async sendMsgDeleteTask({ rootGetters }, { value, fee, memo }) {
+		async sendMsgDeleteCompletion({ rootGetters }, { value, fee, memo }) {
 			try {
-				const msg = await (await initTxClient(rootGetters)).msgDeleteTask(value)
+				const msg = await (await initTxClient(rootGetters)).msgDeleteCompletion(value)
 				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
   gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgDeleteTask:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgDeleteCompletion:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgDeleteTask:Send', 'Could not broadcast Tx.')
+					throw new SpVuexError('TxClient:MsgDeleteCompletion:Send', 'Could not broadcast Tx.')
 				}
 			}
 		},
@@ -246,6 +248,7 @@ export default {
 				}
 			}
 		},
+<<<<<<< HEAD
 		async sendMsgUpdateTask({ rootGetters }, { value, fee, memo }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgUpdateTask(value)
@@ -276,14 +279,60 @@ export default {
 		},
 		
 		async MsgDeleteTask({ rootGetters }, { value }) {
+=======
+		async sendMsgDeleteTask({ rootGetters }, { value, fee, memo }) {
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgDeleteTask(value)
-				return msg
+				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
+  gas: "200000" }, memo})
+				return result
 			} catch (e) {
 				if (e.toString()=='wallet is required') {
 					throw new SpVuexError('TxClient:MsgDeleteTask:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgDeleteTask:Create', 'Could not create message.')
+					throw new SpVuexError('TxClient:MsgDeleteTask:Send', 'Could not broadcast Tx.')
+				}
+			}
+		},
+		async sendMsgCreateCompletion({ rootGetters }, { value, fee, memo }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgCreateCompletion(value)
+				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
+  gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgCreateCompletion:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateCompletion:Send', 'Could not broadcast Tx.')
+				}
+			}
+		},
+		async sendMsgUpdateCompletion({ rootGetters }, { value, fee, memo }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgUpdateCompletion(value)
+				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
+  gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgUpdateCompletion:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUpdateCompletion:Send', 'Could not broadcast Tx.')
+				}
+			}
+		},
+		
+		async MsgDeleteCompletion({ rootGetters }, { value }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgDeleteCompletion(value)
+				return msg
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgDeleteCompletion:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgDeleteCompletion:Create', 'Could not create message.')
 				}
 			}
 		},
@@ -323,6 +372,7 @@ export default {
 				}
 			}
 		},
+<<<<<<< HEAD
 		async MsgUpdateTask({ rootGetters }, { value }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgUpdateTask(value)
@@ -332,6 +382,17 @@ export default {
 					throw new SpVuexError('TxClient:MsgUpdateTask:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgUpdateTask:Create', 'Could not create message.')
+=======
+		async MsgDeleteTask({ rootGetters }, { value }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgDeleteTask(value)
+				return msg
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgDeleteTask:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgDeleteTask:Create', 'Could not create message.')
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 				}
 			}
 		},
@@ -347,6 +408,21 @@ export default {
 				}
 			}
 		},
+<<<<<<< HEAD
+=======
+		async MsgUpdateCompletion({ rootGetters }, { value }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgUpdateCompletion(value)
+				return msg
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgUpdateCompletion:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUpdateCompletion:Create', 'Could not create message.')
+				}
+			}
+		},
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 		
 	}
 }

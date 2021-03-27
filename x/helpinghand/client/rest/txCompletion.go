@@ -67,7 +67,10 @@ type updateCompletionRequest struct {
 	TaskID    string       `json:"taskID"`
 	ImageURL  string       `json:"imageURL"`
 	ImageHash string       `json:"imageHash"`
+<<<<<<< HEAD
 	Status    string       `json:"status"`
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 }
 
 func updateCompletionHandler(clientCtx client.Context) http.HandlerFunc {
@@ -105,15 +108,21 @@ func updateCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 
 		parsedImageHash := req.ImageHash
 
+<<<<<<< HEAD
 		parsedStatus := req.Status
 
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 		msg := types.NewMsgUpdateCompletion(
 			req.Creator,
 			id,
 			parsedTaskID,
 			parsedImageURL,
 			parsedImageHash,
+<<<<<<< HEAD
 			parsedStatus,
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)

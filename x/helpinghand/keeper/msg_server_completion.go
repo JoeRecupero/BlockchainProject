@@ -18,7 +18,10 @@ func (k msgServer) CreateCompletion(goCtx context.Context, msg *types.MsgCreateC
 		msg.TaskID,
 		msg.ImageURL,
 		msg.ImageHash,
+<<<<<<< HEAD
 		"Pending",
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 	)
 
 	return &types.MsgCreateCompletionResponse{
@@ -35,7 +38,10 @@ func (k msgServer) UpdateCompletion(goCtx context.Context, msg *types.MsgUpdateC
 		TaskID:    msg.TaskID,
 		ImageURL:  msg.ImageURL,
 		ImageHash: msg.ImageHash,
+<<<<<<< HEAD
 		Status:    msg.Status,
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 	}
 
 	// Checks that the element exists

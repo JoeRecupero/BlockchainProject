@@ -7,7 +7,10 @@ const baseMsgCreateCompletion = {
     taskID: 0,
     imageURL: "",
     imageHash: "",
+<<<<<<< HEAD
     status: "",
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 };
 export const MsgCreateCompletion = {
     encode(message, writer = Writer.create()) {
@@ -23,9 +26,12 @@ export const MsgCreateCompletion = {
         if (message.imageHash !== "") {
             writer.uint32(34).string(message.imageHash);
         }
+<<<<<<< HEAD
         if (message.status !== "") {
             writer.uint32(42).string(message.status);
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return writer;
     },
     decode(input, length) {
@@ -47,9 +53,12 @@ export const MsgCreateCompletion = {
                 case 4:
                     message.imageHash = reader.string();
                     break;
+<<<<<<< HEAD
                 case 5:
                     message.status = reader.string();
                     break;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -83,12 +92,15 @@ export const MsgCreateCompletion = {
         else {
             message.imageHash = "";
         }
+<<<<<<< HEAD
         if (object.status !== undefined && object.status !== null) {
             message.status = String(object.status);
         }
         else {
             message.status = "";
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return message;
     },
     toJSON(message) {
@@ -97,7 +109,10 @@ export const MsgCreateCompletion = {
         message.taskID !== undefined && (obj.taskID = message.taskID);
         message.imageURL !== undefined && (obj.imageURL = message.imageURL);
         message.imageHash !== undefined && (obj.imageHash = message.imageHash);
+<<<<<<< HEAD
         message.status !== undefined && (obj.status = message.status);
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return obj;
     },
     fromPartial(object) {
@@ -126,12 +141,15 @@ export const MsgCreateCompletion = {
         else {
             message.imageHash = "";
         }
+<<<<<<< HEAD
         if (object.status !== undefined && object.status !== null) {
             message.status = object.status;
         }
         else {
             message.status = "";
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return message;
     },
 };
@@ -198,7 +216,10 @@ const baseMsgUpdateCompletion = {
     taskID: 0,
     imageURL: "",
     imageHash: "",
+<<<<<<< HEAD
     status: "",
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 };
 export const MsgUpdateCompletion = {
     encode(message, writer = Writer.create()) {
@@ -217,9 +238,12 @@ export const MsgUpdateCompletion = {
         if (message.imageHash !== "") {
             writer.uint32(42).string(message.imageHash);
         }
+<<<<<<< HEAD
         if (message.status !== "") {
             writer.uint32(50).string(message.status);
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return writer;
     },
     decode(input, length) {
@@ -244,9 +268,12 @@ export const MsgUpdateCompletion = {
                 case 5:
                     message.imageHash = reader.string();
                     break;
+<<<<<<< HEAD
                 case 6:
                     message.status = reader.string();
                     break;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -286,12 +313,15 @@ export const MsgUpdateCompletion = {
         else {
             message.imageHash = "";
         }
+<<<<<<< HEAD
         if (object.status !== undefined && object.status !== null) {
             message.status = String(object.status);
         }
         else {
             message.status = "";
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return message;
     },
     toJSON(message) {
@@ -301,7 +331,10 @@ export const MsgUpdateCompletion = {
         message.taskID !== undefined && (obj.taskID = message.taskID);
         message.imageURL !== undefined && (obj.imageURL = message.imageURL);
         message.imageHash !== undefined && (obj.imageHash = message.imageHash);
+<<<<<<< HEAD
         message.status !== undefined && (obj.status = message.status);
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return obj;
     },
     fromPartial(object) {
@@ -336,12 +369,15 @@ export const MsgUpdateCompletion = {
         else {
             message.imageHash = "";
         }
+<<<<<<< HEAD
         if (object.status !== undefined && object.status !== null) {
             message.status = object.status;
         }
         else {
             message.status = "";
         }
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
         return message;
     },
 };

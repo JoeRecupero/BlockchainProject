@@ -4,6 +4,7 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+<<<<<<< HEAD
 import { MsgDeleteTask } from "./types/helpinghand/tx";
 import { MsgDeleteCompletion } from "./types/helpinghand/tx";
 import { MsgUpdateCompletion } from "./types/helpinghand/tx";
@@ -19,6 +20,23 @@ const types = [
   ["/blockchaingroup2.helpinghand.helpinghand.MsgCreateTask", MsgCreateTask],
   ["/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", MsgUpdateTask],
   ["/blockchaingroup2.helpinghand.helpinghand.MsgCreateCompletion", MsgCreateCompletion],
+=======
+import { MsgDeleteCompletion } from "./types/helpinghand/tx";
+import { MsgUpdateTask } from "./types/helpinghand/tx";
+import { MsgCreateTask } from "./types/helpinghand/tx";
+import { MsgDeleteTask } from "./types/helpinghand/tx";
+import { MsgCreateCompletion } from "./types/helpinghand/tx";
+import { MsgUpdateCompletion } from "./types/helpinghand/tx";
+
+
+const types = [
+  ["/blockchaingroup2.helpinghand.helpinghand.MsgDeleteCompletion", MsgDeleteCompletion],
+  ["/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", MsgUpdateTask],
+  ["/blockchaingroup2.helpinghand.helpinghand.MsgCreateTask", MsgCreateTask],
+  ["/blockchaingroup2.helpinghand.helpinghand.MsgDeleteTask", MsgDeleteTask],
+  ["/blockchaingroup2.helpinghand.helpinghand.MsgCreateCompletion", MsgCreateCompletion],
+  ["/blockchaingroup2.helpinghand.helpinghand.MsgUpdateCompletion", MsgUpdateCompletion],
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
   
 ];
 
@@ -46,12 +64,21 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee=defaultFee, memo=null }: SignAndBroadcastOptions) => memo?client.signAndBroadcast(address, msgs, fee,memo):client.signAndBroadcast(address, msgs, fee),
+<<<<<<< HEAD
     msgDeleteTask: (data: MsgDeleteTask): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgDeleteTask", value: data }),
     msgDeleteCompletion: (data: MsgDeleteCompletion): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgDeleteCompletion", value: data }),
     msgUpdateCompletion: (data: MsgUpdateCompletion): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateCompletion", value: data }),
     msgCreateTask: (data: MsgCreateTask): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgCreateTask", value: data }),
     msgUpdateTask: (data: MsgUpdateTask): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", value: data }),
     msgCreateCompletion: (data: MsgCreateCompletion): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgCreateCompletion", value: data }),
+=======
+    msgDeleteCompletion: (data: MsgDeleteCompletion): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgDeleteCompletion", value: data }),
+    msgUpdateTask: (data: MsgUpdateTask): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", value: data }),
+    msgCreateTask: (data: MsgCreateTask): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgCreateTask", value: data }),
+    msgDeleteTask: (data: MsgDeleteTask): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgDeleteTask", value: data }),
+    msgCreateCompletion: (data: MsgCreateCompletion): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgCreateCompletion", value: data }),
+    msgUpdateCompletion: (data: MsgUpdateCompletion): EncodeObject => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateCompletion", value: data }),
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
     
   };
 };

@@ -44,7 +44,10 @@ func (k Keeper) AppendCompletion(
 	taskID int32,
 	imageURL string,
 	imageHash string,
+<<<<<<< HEAD
 	status string,
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 ) uint64 {
 	// Create the completion
 	count := k.GetCompletionCount(ctx)
@@ -54,7 +57,10 @@ func (k Keeper) AppendCompletion(
 		TaskID:    taskID,
 		ImageURL:  imageURL,
 		ImageHash: imageHash,
+<<<<<<< HEAD
 		Status:    status,
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))

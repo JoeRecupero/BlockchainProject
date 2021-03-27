@@ -6,7 +6,10 @@ export interface HelpinghandCompletion {
     taskID?: number;
     imageURL?: string;
     imageHash?: string;
+<<<<<<< HEAD
     status?: string;
+=======
+>>>>>>> 61813646a87504babfb5036c42bad1a17a2c4b04
 }
 export interface HelpinghandMsgCreateCompletionResponse {
     /** @format uint64 */
