@@ -1,0 +1,63 @@
+syntax = "proto3";
+package blockchaingroup2.helpinghand.helpinghand;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "helpinghand/completion.proto";
+import "helpinghand/task.proto";
+
+option go_package = "gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+	rpc Completion(QueryGetCompletionRequest) returns (QueryGetCompletionResponse) {
+		option (google.api.http).get = "/blockchaingroup2/helpinghand/helpinghand/completion/{id}";
+	}
+	rpc CompletionAll(QueryAllCompletionRequest) returns (QueryAllCompletionResponse) {
+		option (google.api.http).get = "/blockchaingroup2/helpinghand/helpinghand/completion";
+	}
+
+	rpc Task(QueryGetTaskRequest) returns (QueryGetTaskResponse) {
+		option (google.api.http).get = "/blockchaingroup2/helpinghand/helpinghand/task/{id}";
+	}
+	rpc TaskAll(QueryAllTaskRequest) returns (QueryAllTaskResponse) {
+		option (google.api.http).get = "/blockchaingroup2/helpinghand/helpinghand/task";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetCompletionRequest {
+	uint64 id = 1;
+}
+
+message QueryGetCompletionResponse {
+	Completion Completion = 1;
+}
+
+message QueryAllCompletionRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCompletionResponse {
+	repeated Completion Completion = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetTaskRequest {
+	uint64 id = 1;
+}
+
+message QueryGetTaskResponse {
+	Task Task = 1;
+}
+
+message QueryAllTaskRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTaskResponse {
+	repeated Task Task = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
