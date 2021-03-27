@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"strconv"
+
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -15,7 +17,7 @@ func CmdCreateCompletion() *cobra.Command {
 		Short: "Creates a new completion",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsTaskID := string(args[0])
+			argsTaskID, _ := strconv.ParseInt(args[0], 10, 64)
 			argsImageURL := string(args[1])
 			argsImageHash := string(args[2])
 
@@ -24,7 +26,7 @@ func CmdCreateCompletion() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateCompletion(clientCtx.GetFromAddress().String(), string(argsTaskID), string(argsImageURL), string(argsImageHash))
+			msg := types.NewMsgCreateCompletion(clientCtx.GetFromAddress().String(), int32(argsTaskID), string(argsImageURL), string(argsImageHash))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -39,21 +41,26 @@ func CmdCreateCompletion() *cobra.Command {
 
 func CmdUpdateCompletion() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-completion [id] [taskID] [imageURL] [imageHash]",
+		Use:   "update-completion [id] [taskID] [imageURL] [imageHash] [status]",
 		Short: "Update a completion",
-		Args:  cobra.ExactArgs(4),
+		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id := args[0]
-			argsTaskID := string(args[1])
+			id, err := strconv.ParseUint(args[0], 10, 64)
+			if err != nil {
+				return err
+			}
+
+			argsTaskID, _ := strconv.ParseInt(args[1], 10, 64)
 			argsImageURL := string(args[2])
 			argsImageHash := string(args[3])
+			argsStatus := string(args[4])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateCompletion(clientCtx.GetFromAddress().String(), id, string(argsTaskID), string(argsImageURL), string(argsImageHash))
+			msg := types.NewMsgUpdateCompletion(clientCtx.GetFromAddress().String(), id, int32(argsTaskID), string(argsImageURL), string(argsImageHash), string(argsStatus))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -68,11 +75,14 @@ func CmdUpdateCompletion() *cobra.Command {
 
 func CmdDeleteCompletion() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-completion [id] [taskID] [imageURL] [imageHash]",
+		Use:   "delete-completion [id] [taskID] [imageURL] [imageHash] [status]",
 		Short: "Delete a completion by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id := args[0]
+			id, err := strconv.ParseUint(args[0], 10, 64)
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

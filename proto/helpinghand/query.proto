@@ -30,7 +30,7 @@ service Query {
 
 // this line is used by starport scaffolding # 3
 message QueryGetCompletionRequest {
-	string id = 1;
+	uint64 id = 1;
 }
 
 message QueryGetCompletionResponse {

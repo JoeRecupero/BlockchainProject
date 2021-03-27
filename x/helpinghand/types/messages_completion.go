@@ -7,12 +7,13 @@ import (
 
 var _ sdk.Msg = &MsgCreateCompletion{}
 
-func NewMsgCreateCompletion(creator string, taskID string, imageURL string, imageHash string) *MsgCreateCompletion {
+func NewMsgCreateCompletion(creator string, taskID int32, imageURL string, imageHash string) *MsgCreateCompletion {
 	return &MsgCreateCompletion{
 		Creator:   creator,
 		TaskID:    taskID,
 		ImageURL:  imageURL,
 		ImageHash: imageHash,
+		Status:    "Pending",
 	}
 }
 
@@ -47,13 +48,14 @@ func (msg *MsgCreateCompletion) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateCompletion{}
 
-func NewMsgUpdateCompletion(creator string, id string, taskID string, imageURL string, imageHash string) *MsgUpdateCompletion {
+func NewMsgUpdateCompletion(creator string, id uint64, taskID int32, imageURL string, imageHash string, status string) *MsgUpdateCompletion {
 	return &MsgUpdateCompletion{
 		Id:        id,
 		Creator:   creator,
 		TaskID:    taskID,
 		ImageURL:  imageURL,
 		ImageHash: imageHash,
+		Status:    status,
 	}
 }
 
@@ -88,7 +90,7 @@ func (msg *MsgUpdateCompletion) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgCreateCompletion{}
 
-func NewMsgDeleteCompletion(creator string, id string) *MsgDeleteCompletion {
+func NewMsgDeleteCompletion(creator string, id uint64) *MsgDeleteCompletion {
 	return &MsgDeleteCompletion{
 		Id:      id,
 		Creator: creator,

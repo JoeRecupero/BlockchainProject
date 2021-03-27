@@ -3,12 +3,18 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgDeleteTask } from "./types/helpinghand/tx";
-import { MsgUpdateTask } from "./types/helpinghand/tx";
+import { MsgDeleteCompletion } from "./types/helpinghand/tx";
+import { MsgUpdateCompletion } from "./types/helpinghand/tx";
 import { MsgCreateTask } from "./types/helpinghand/tx";
+import { MsgUpdateTask } from "./types/helpinghand/tx";
+import { MsgCreateCompletion } from "./types/helpinghand/tx";
 const types = [
     ["/blockchaingroup2.helpinghand.helpinghand.MsgDeleteTask", MsgDeleteTask],
-    ["/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", MsgUpdateTask],
+    ["/blockchaingroup2.helpinghand.helpinghand.MsgDeleteCompletion", MsgDeleteCompletion],
+    ["/blockchaingroup2.helpinghand.helpinghand.MsgUpdateCompletion", MsgUpdateCompletion],
     ["/blockchaingroup2.helpinghand.helpinghand.MsgCreateTask", MsgCreateTask],
+    ["/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", MsgUpdateTask],
+    ["/blockchaingroup2.helpinghand.helpinghand.MsgCreateCompletion", MsgCreateCompletion],
 ];
 const registry = new Registry(types);
 const defaultFee = {
@@ -23,8 +29,11 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     return {
         signAndBroadcast: (msgs, { fee = defaultFee, memo = null }) => memo ? client.signAndBroadcast(address, msgs, fee, memo) : client.signAndBroadcast(address, msgs, fee),
         msgDeleteTask: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgDeleteTask", value: data }),
-        msgUpdateTask: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", value: data }),
+        msgDeleteCompletion: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgDeleteCompletion", value: data }),
+        msgUpdateCompletion: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateCompletion", value: data }),
         msgCreateTask: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgCreateTask", value: data }),
+        msgUpdateTask: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgUpdateTask", value: data }),
+        msgCreateCompletion: (data) => ({ typeUrl: "/blockchaingroup2.helpinghand.helpinghand.MsgCreateCompletion", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

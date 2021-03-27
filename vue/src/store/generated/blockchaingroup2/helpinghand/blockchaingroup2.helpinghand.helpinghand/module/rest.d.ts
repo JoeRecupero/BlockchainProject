@@ -1,9 +1,38 @@
+export interface HelpinghandCompletion {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    /** @format int32 */
+    taskID?: number;
+    imageURL?: string;
+    imageHash?: string;
+    status?: string;
+}
+export interface HelpinghandMsgCreateCompletionResponse {
+    /** @format uint64 */
+    id?: string;
+}
 export interface HelpinghandMsgCreateTaskResponse {
     /** @format uint64 */
     id?: string;
 }
+export declare type HelpinghandMsgDeleteCompletionResponse = object;
 export declare type HelpinghandMsgDeleteTaskResponse = object;
+export declare type HelpinghandMsgUpdateCompletionResponse = object;
 export declare type HelpinghandMsgUpdateTaskResponse = object;
+export interface HelpinghandQueryAllCompletionResponse {
+    Completion?: HelpinghandCompletion[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface HelpinghandQueryAllTaskResponse {
     Task?: HelpinghandTask[];
     /**
@@ -16,6 +45,9 @@ export interface HelpinghandQueryAllTaskResponse {
      *  }
      */
     pagination?: V1Beta1PageResponse;
+}
+export interface HelpinghandQueryGetCompletionResponse {
+    Completion?: HelpinghandCompletion;
 }
 export interface HelpinghandQueryGetTaskResponse {
     Task?: HelpinghandTask;
@@ -156,6 +188,28 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * No description
      *
      * @tags Query
+     * @name QueryCompletionAll
+     * @request GET:/blockchaingroup2/helpinghand/helpinghand/completion
+     */
+    queryCompletionAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<HelpinghandQueryAllCompletionResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryCompletion
+     * @summary this line is used by starport scaffolding # 2
+     * @request GET:/blockchaingroup2/helpinghand/helpinghand/completion/{id}
+     */
+    queryCompletion: (id: string, params?: RequestParams) => Promise<HttpResponse<HelpinghandQueryGetCompletionResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
      * @name QueryTaskAll
      * @request GET:/blockchaingroup2/helpinghand/helpinghand/task
      */
@@ -170,7 +224,6 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      *
      * @tags Query
      * @name QueryTask
-     * @summary this line is used by starport scaffolding # 2
      * @request GET:/blockchaingroup2/helpinghand/helpinghand/task/{id}
      */
     queryTask: (id: string, params?: RequestParams) => Promise<HttpResponse<HelpinghandQueryGetTaskResponse, RpcStatus>>;

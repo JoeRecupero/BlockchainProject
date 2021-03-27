@@ -2,6 +2,495 @@
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 export const protobufPackage = "blockchaingroup2.helpinghand.helpinghand";
+const baseMsgCreateCompletion = {
+    creator: "",
+    taskID: 0,
+    imageURL: "",
+    imageHash: "",
+    status: "",
+};
+export const MsgCreateCompletion = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.taskID !== 0) {
+            writer.uint32(16).int32(message.taskID);
+        }
+        if (message.imageURL !== "") {
+            writer.uint32(26).string(message.imageURL);
+        }
+        if (message.imageHash !== "") {
+            writer.uint32(34).string(message.imageHash);
+        }
+        if (message.status !== "") {
+            writer.uint32(42).string(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateCompletion };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.taskID = reader.int32();
+                    break;
+                case 3:
+                    message.imageURL = reader.string();
+                    break;
+                case 4:
+                    message.imageHash = reader.string();
+                    break;
+                case 5:
+                    message.status = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateCompletion };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.taskID !== undefined && object.taskID !== null) {
+            message.taskID = Number(object.taskID);
+        }
+        else {
+            message.taskID = 0;
+        }
+        if (object.imageURL !== undefined && object.imageURL !== null) {
+            message.imageURL = String(object.imageURL);
+        }
+        else {
+            message.imageURL = "";
+        }
+        if (object.imageHash !== undefined && object.imageHash !== null) {
+            message.imageHash = String(object.imageHash);
+        }
+        else {
+            message.imageHash = "";
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = String(object.status);
+        }
+        else {
+            message.status = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.taskID !== undefined && (obj.taskID = message.taskID);
+        message.imageURL !== undefined && (obj.imageURL = message.imageURL);
+        message.imageHash !== undefined && (obj.imageHash = message.imageHash);
+        message.status !== undefined && (obj.status = message.status);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateCompletion };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.taskID !== undefined && object.taskID !== null) {
+            message.taskID = object.taskID;
+        }
+        else {
+            message.taskID = 0;
+        }
+        if (object.imageURL !== undefined && object.imageURL !== null) {
+            message.imageURL = object.imageURL;
+        }
+        else {
+            message.imageURL = "";
+        }
+        if (object.imageHash !== undefined && object.imageHash !== null) {
+            message.imageHash = object.imageHash;
+        }
+        else {
+            message.imageHash = "";
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = "";
+        }
+        return message;
+    },
+};
+const baseMsgCreateCompletionResponse = { id: 0 };
+export const MsgCreateCompletionResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateCompletionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgCreateCompletionResponse,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgCreateCompletionResponse,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+};
+const baseMsgUpdateCompletion = {
+    creator: "",
+    id: 0,
+    taskID: 0,
+    imageURL: "",
+    imageHash: "",
+    status: "",
+};
+export const MsgUpdateCompletion = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        if (message.taskID !== 0) {
+            writer.uint32(24).int32(message.taskID);
+        }
+        if (message.imageURL !== "") {
+            writer.uint32(34).string(message.imageURL);
+        }
+        if (message.imageHash !== "") {
+            writer.uint32(42).string(message.imageHash);
+        }
+        if (message.status !== "") {
+            writer.uint32(50).string(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateCompletion };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.taskID = reader.int32();
+                    break;
+                case 4:
+                    message.imageURL = reader.string();
+                    break;
+                case 5:
+                    message.imageHash = reader.string();
+                    break;
+                case 6:
+                    message.status = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateCompletion };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.taskID !== undefined && object.taskID !== null) {
+            message.taskID = Number(object.taskID);
+        }
+        else {
+            message.taskID = 0;
+        }
+        if (object.imageURL !== undefined && object.imageURL !== null) {
+            message.imageURL = String(object.imageURL);
+        }
+        else {
+            message.imageURL = "";
+        }
+        if (object.imageHash !== undefined && object.imageHash !== null) {
+            message.imageHash = String(object.imageHash);
+        }
+        else {
+            message.imageHash = "";
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = String(object.status);
+        }
+        else {
+            message.status = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        message.taskID !== undefined && (obj.taskID = message.taskID);
+        message.imageURL !== undefined && (obj.imageURL = message.imageURL);
+        message.imageHash !== undefined && (obj.imageHash = message.imageHash);
+        message.status !== undefined && (obj.status = message.status);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateCompletion };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.taskID !== undefined && object.taskID !== null) {
+            message.taskID = object.taskID;
+        }
+        else {
+            message.taskID = 0;
+        }
+        if (object.imageURL !== undefined && object.imageURL !== null) {
+            message.imageURL = object.imageURL;
+        }
+        else {
+            message.imageURL = "";
+        }
+        if (object.imageHash !== undefined && object.imageHash !== null) {
+            message.imageHash = object.imageHash;
+        }
+        else {
+            message.imageHash = "";
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = "";
+        }
+        return message;
+    },
+};
+const baseMsgUpdateCompletionResponse = {};
+export const MsgUpdateCompletionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUpdateCompletionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgUpdateCompletionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgUpdateCompletionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgDeleteCompletion = { creator: "", id: 0 };
+export const MsgDeleteCompletion = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteCompletion };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteCompletion };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteCompletion };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+};
+const baseMsgDeleteCompletionResponse = {};
+export const MsgDeleteCompletionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDeleteCompletionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgDeleteCompletionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgDeleteCompletionResponse,
+        };
+        return message;
+    },
+};
 const baseMsgCreateTask = {
     creator: "",
     title: "",
@@ -518,6 +1007,21 @@ export const MsgDeleteTaskResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CreateCompletion(request) {
+        const data = MsgCreateCompletion.encode(request).finish();
+        const promise = this.rpc.request("blockchaingroup2.helpinghand.helpinghand.Msg", "CreateCompletion", data);
+        return promise.then((data) => MsgCreateCompletionResponse.decode(new Reader(data)));
+    }
+    UpdateCompletion(request) {
+        const data = MsgUpdateCompletion.encode(request).finish();
+        const promise = this.rpc.request("blockchaingroup2.helpinghand.helpinghand.Msg", "UpdateCompletion", data);
+        return promise.then((data) => MsgUpdateCompletionResponse.decode(new Reader(data)));
+    }
+    DeleteCompletion(request) {
+        const data = MsgDeleteCompletion.encode(request).finish();
+        const promise = this.rpc.request("blockchaingroup2.helpinghand.helpinghand.Msg", "DeleteCompletion", data);
+        return promise.then((data) => MsgDeleteCompletionResponse.decode(new Reader(data)));
     }
     CreateTask(request) {
         const data = MsgCreateTask.encode(request).finish();

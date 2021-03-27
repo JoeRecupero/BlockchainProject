@@ -16,7 +16,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set completion count
-	k.SetCompletionCount(ctx, int64(len(genState.CompletionList)))
+	k.SetCompletionCount(ctx, uint64(len(genState.CompletionList)))
 
 	// Set all the task
 	for _, elem := range genState.TaskList {

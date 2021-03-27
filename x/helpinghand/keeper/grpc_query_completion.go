@@ -5,6 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types"
 	"google.golang.org/grpc/codes"
@@ -47,8 +48,12 @@ func (k Keeper) Completion(c context.Context, req *types.QueryGetCompletionReque
 	var completion types.Completion
 	ctx := sdk.UnwrapSDKContext(c)
 
+	if !k.HasCompletion(ctx, req.Id) {
+		return nil, sdkerrors.ErrKeyNotFound
+	}
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.CompletionKey+req.Id)), &completion)
+	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCompletionIDBytes(req.Id)), &completion)
 
 	return &types.QueryGetCompletionResponse{Completion: &completion}, nil
 }

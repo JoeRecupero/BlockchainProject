@@ -12,9 +12,6 @@ import (
 	"gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types"
 )
 
-// Used to not have an error if strconv is unused
-var _ = strconv.Itoa(42)
-
 type createCompletionRequest struct {
 	BaseReq   rest.BaseReq `json:"base_req"`
 	Creator   string       `json:"creator"`
@@ -42,7 +39,12 @@ func createCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
-		parsedTaskID := req.TaskID
+		parsedTaskID64, err := strconv.ParseInt(req.TaskID, 10, 32)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		parsedTaskID := int32(parsedTaskID64)
 
 		parsedImageURL := req.ImageURL
 
@@ -65,11 +67,15 @@ type updateCompletionRequest struct {
 	TaskID    string       `json:"taskID"`
 	ImageURL  string       `json:"imageURL"`
 	ImageHash string       `json:"imageHash"`
+	Status    string       `json:"status"`
 }
 
 func updateCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		id := mux.Vars(r)["id"]
+		id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 64)
+		if err != nil {
+			return
+		}
 
 		var req updateCompletionRequest
 		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
@@ -82,17 +88,24 @@ func updateCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
-		_, err := sdk.AccAddressFromBech32(req.Creator)
+		_, err = sdk.AccAddressFromBech32(req.Creator)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		parsedTaskID := req.TaskID
+		parsedTaskID64, err := strconv.ParseInt(req.TaskID, 10, 32)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		parsedTaskID := int32(parsedTaskID64)
 
 		parsedImageURL := req.ImageURL
 
 		parsedImageHash := req.ImageHash
+
+		parsedStatus := req.Status
 
 		msg := types.NewMsgUpdateCompletion(
 			req.Creator,
@@ -100,6 +113,7 @@ func updateCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 			parsedTaskID,
 			parsedImageURL,
 			parsedImageHash,
+			parsedStatus,
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
@@ -113,7 +127,10 @@ type deleteCompletionRequest struct {
 
 func deleteCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		id := mux.Vars(r)["id"]
+		id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 64)
+		if err != nil {
+			return
+		}
 
 		var req deleteCompletionRequest
 		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
@@ -126,7 +143,7 @@ func deleteCompletionHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
-		_, err := sdk.AccAddressFromBech32(req.Creator)
+		_, err = sdk.AccAddressFromBech32(req.Creator)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return

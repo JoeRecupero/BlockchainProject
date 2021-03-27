@@ -7,28 +7,9 @@ import "gogoproto/gogo.proto";
 
 message Completion {
   string creator = 1;
-  string id = 2;
-  string taskID = 3; 
+  uint64 id = 2;
+  int32 taskID = 3; 
   string imageURL = 4; 
   string imageHash = 5; 
-}
-
-message MsgCreateCompletion {
-  string creator = 1;
-  string taskID = 2; 
-  string imageURL = 3; 
-  string imageHash = 4; 
-}
-
-message MsgUpdateCompletion {
-  string creator = 1;
-  string id = 2;
-  string taskID = 3; 
-  string imageURL = 4; 
-  string imageHash = 5; 
-}
-
-message MsgDeleteCompletion {
-  string creator = 1;
-  string id = 2;
+  string status = 6; 
 }

@@ -21,7 +21,7 @@ func DefaultGenesis() *GenesisState {
 func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # genesis/types/validate
 	// Check for duplicated ID in completion
-	completionIdMap := make(map[string]bool)
+	completionIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.CompletionList {
 		if _, ok := completionIdMap[elem.Id]; ok {

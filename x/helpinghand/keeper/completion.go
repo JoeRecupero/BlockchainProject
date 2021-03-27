@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"encoding/binary"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types"
@@ -8,7 +9,7 @@ import (
 )
 
 // GetCompletionCount get the total number of completion
-func (k Keeper) GetCompletionCount(ctx sdk.Context) int64 {
+func (k Keeper) GetCompletionCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionCountKey))
 	byteKey := types.KeyPrefix(types.CompletionCountKey)
 	bz := store.Get(byteKey)
@@ -19,9 +20,9 @@ func (k Keeper) GetCompletionCount(ctx sdk.Context) int64 {
 	}
 
 	// Parse bytes
-	count, err := strconv.ParseInt(string(bz), 10, 64)
+	count, err := strconv.ParseUint(string(bz), 10, 64)
 	if err != nil {
-		// Panic because the count should be always formattable to int64
+		// Panic because the count should be always formattable to iint64
 		panic("cannot decode count")
 	}
 
@@ -29,78 +30,99 @@ func (k Keeper) GetCompletionCount(ctx sdk.Context) int64 {
 }
 
 // SetCompletionCount set the total number of completion
-func (k Keeper) SetCompletionCount(ctx sdk.Context, count int64) {
+func (k Keeper) SetCompletionCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionCountKey))
 	byteKey := types.KeyPrefix(types.CompletionCountKey)
-	bz := []byte(strconv.FormatInt(count, 10))
+	bz := []byte(strconv.FormatUint(count, 10))
 	store.Set(byteKey, bz)
 }
 
-// CreateCompletion creates a completion with a new id and update the count
-func (k Keeper) CreateCompletion(ctx sdk.Context, msg types.MsgCreateCompletion) {
+// AppendCompletion appends a completion in the store with a new id and update the count
+func (k Keeper) AppendCompletion(
+	ctx sdk.Context,
+	creator string,
+	taskID int32,
+	imageURL string,
+	imageHash string,
+	status string,
+) uint64 {
 	// Create the completion
 	count := k.GetCompletionCount(ctx)
 	var completion = types.Completion{
-		Creator:   msg.Creator,
-		Id:        strconv.FormatInt(count, 10),
-		TaskID:    msg.TaskID,
-		ImageURL:  msg.ImageURL,
-		ImageHash: msg.ImageHash,
+		Creator:   creator,
+		Id:        count,
+		TaskID:    taskID,
+		ImageURL:  imageURL,
+		ImageHash: imageHash,
+		Status:    status,
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
-	key := types.KeyPrefix(types.CompletionKey + completion.Id)
 	value := k.cdc.MustMarshalBinaryBare(&completion)
-	store.Set(key, value)
+	store.Set(GetCompletionIDBytes(completion.Id), value)
 
 	// Update completion count
 	k.SetCompletionCount(ctx, count+1)
+
+	return count
 }
 
 // SetCompletion set a specific completion in the store
 func (k Keeper) SetCompletion(ctx sdk.Context, completion types.Completion) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
 	b := k.cdc.MustMarshalBinaryBare(&completion)
-	store.Set(types.KeyPrefix(types.CompletionKey+completion.Id), b)
+	store.Set(GetCompletionIDBytes(completion.Id), b)
 }
 
 // GetCompletion returns a completion from its id
-func (k Keeper) GetCompletion(ctx sdk.Context, key string) types.Completion {
+func (k Keeper) GetCompletion(ctx sdk.Context, id uint64) types.Completion {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
 	var completion types.Completion
-	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.CompletionKey+key)), &completion)
+	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCompletionIDBytes(id)), &completion)
 	return completion
 }
 
-// HasCompletion checks if the completion exists
-func (k Keeper) HasCompletion(ctx sdk.Context, id string) bool {
+// HasCompletion checks if the completion exists in the store
+func (k Keeper) HasCompletion(ctx sdk.Context, id uint64) bool {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
-	return store.Has(types.KeyPrefix(types.CompletionKey + id))
+	return store.Has(GetCompletionIDBytes(id))
 }
 
 // GetCompletionOwner returns the creator of the completion
-func (k Keeper) GetCompletionOwner(ctx sdk.Context, key string) string {
-	return k.GetCompletion(ctx, key).Creator
+func (k Keeper) GetCompletionOwner(ctx sdk.Context, id uint64) string {
+	return k.GetCompletion(ctx, id).Creator
 }
 
-// DeleteCompletion deletes a completion
-func (k Keeper) DeleteCompletion(ctx sdk.Context, key string) {
+// RemoveCompletion removes a completion from the store
+func (k Keeper) RemoveCompletion(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
-	store.Delete(types.KeyPrefix(types.CompletionKey + key))
+	store.Delete(GetCompletionIDBytes(id))
 }
 
 // GetAllCompletion returns all completion
-func (k Keeper) GetAllCompletion(ctx sdk.Context) (msgs []types.Completion) {
+func (k Keeper) GetAllCompletion(ctx sdk.Context) (list []types.Completion) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CompletionKey))
-	iterator := sdk.KVStorePrefixIterator(store, types.KeyPrefix(types.CompletionKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var msg types.Completion
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &msg)
-		msgs = append(msgs, msg)
+		var val types.Completion
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		list = append(list, val)
 	}
 
 	return
+}
+
+// GetCompletionIDBytes returns the byte representation of the ID
+func GetCompletionIDBytes(id uint64) []byte {
+	bz := make([]byte, 8)
+	binary.BigEndian.PutUint64(bz, id)
+	return bz
+}
+
+// GetCompletionIDFromBytes returns ID in uint64 format from a byte array
+func GetCompletionIDFromBytes(bz []byte) uint64 {
+	return binary.BigEndian.Uint64(bz)
 }

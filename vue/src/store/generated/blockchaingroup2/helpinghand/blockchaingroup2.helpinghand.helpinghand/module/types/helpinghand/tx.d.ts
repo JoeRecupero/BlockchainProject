@@ -1,6 +1,32 @@
 import { Reader, Writer } from "protobufjs/minimal";
 export declare const protobufPackage = "blockchaingroup2.helpinghand.helpinghand";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateCompletion {
+    creator: string;
+    taskID: number;
+    imageURL: string;
+    imageHash: string;
+    status: string;
+}
+export interface MsgCreateCompletionResponse {
+    id: number;
+}
+export interface MsgUpdateCompletion {
+    creator: string;
+    id: number;
+    taskID: number;
+    imageURL: string;
+    imageHash: string;
+    status: string;
+}
+export interface MsgUpdateCompletionResponse {
+}
+export interface MsgDeleteCompletion {
+    creator: string;
+    id: number;
+}
+export interface MsgDeleteCompletionResponse {
+}
 export interface MsgCreateTask {
     creator: string;
     title: string;
@@ -29,6 +55,48 @@ export interface MsgDeleteTask {
 }
 export interface MsgDeleteTaskResponse {
 }
+export declare const MsgCreateCompletion: {
+    encode(message: MsgCreateCompletion, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateCompletion;
+    fromJSON(object: any): MsgCreateCompletion;
+    toJSON(message: MsgCreateCompletion): unknown;
+    fromPartial(object: DeepPartial<MsgCreateCompletion>): MsgCreateCompletion;
+};
+export declare const MsgCreateCompletionResponse: {
+    encode(message: MsgCreateCompletionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateCompletionResponse;
+    fromJSON(object: any): MsgCreateCompletionResponse;
+    toJSON(message: MsgCreateCompletionResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateCompletionResponse>): MsgCreateCompletionResponse;
+};
+export declare const MsgUpdateCompletion: {
+    encode(message: MsgUpdateCompletion, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateCompletion;
+    fromJSON(object: any): MsgUpdateCompletion;
+    toJSON(message: MsgUpdateCompletion): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateCompletion>): MsgUpdateCompletion;
+};
+export declare const MsgUpdateCompletionResponse: {
+    encode(_: MsgUpdateCompletionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateCompletionResponse;
+    fromJSON(_: any): MsgUpdateCompletionResponse;
+    toJSON(_: MsgUpdateCompletionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateCompletionResponse>): MsgUpdateCompletionResponse;
+};
+export declare const MsgDeleteCompletion: {
+    encode(message: MsgDeleteCompletion, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteCompletion;
+    fromJSON(object: any): MsgDeleteCompletion;
+    toJSON(message: MsgDeleteCompletion): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteCompletion>): MsgDeleteCompletion;
+};
+export declare const MsgDeleteCompletionResponse: {
+    encode(_: MsgDeleteCompletionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteCompletionResponse;
+    fromJSON(_: any): MsgDeleteCompletionResponse;
+    toJSON(_: MsgDeleteCompletionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteCompletionResponse>): MsgDeleteCompletionResponse;
+};
 export declare const MsgCreateTask: {
     encode(message: MsgCreateTask, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateTask;
@@ -74,6 +142,9 @@ export declare const MsgDeleteTaskResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateCompletion(request: MsgCreateCompletion): Promise<MsgCreateCompletionResponse>;
+    UpdateCompletion(request: MsgUpdateCompletion): Promise<MsgUpdateCompletionResponse>;
+    DeleteCompletion(request: MsgDeleteCompletion): Promise<MsgDeleteCompletionResponse>;
     CreateTask(request: MsgCreateTask): Promise<MsgCreateTaskResponse>;
     UpdateTask(request: MsgUpdateTask): Promise<MsgUpdateTaskResponse>;
     DeleteTask(request: MsgDeleteTask): Promise<MsgDeleteTaskResponse>;
@@ -81,6 +152,9 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreateCompletion(request: MsgCreateCompletion): Promise<MsgCreateCompletionResponse>;
+    UpdateCompletion(request: MsgUpdateCompletion): Promise<MsgUpdateCompletionResponse>;
+    DeleteCompletion(request: MsgDeleteCompletion): Promise<MsgDeleteCompletionResponse>;
     CreateTask(request: MsgCreateTask): Promise<MsgCreateTaskResponse>;
     UpdateTask(request: MsgUpdateTask): Promise<MsgUpdateTaskResponse>;
     DeleteTask(request: MsgDeleteTask): Promise<MsgDeleteTaskResponse>;
