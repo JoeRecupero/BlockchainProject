@@ -1,0 +1,80 @@
+syntax = "proto3";
+package blockchaingroup2.helpinghand.helpinghand;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "gitlab.utwente.nl/blockchaingroup2/helpinghand/x/helpinghand/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateCompletion(MsgCreateCompletion) returns (MsgCreateCompletionResponse);
+  rpc UpdateCompletion(MsgUpdateCompletion) returns (MsgUpdateCompletionResponse);
+  rpc DeleteCompletion(MsgDeleteCompletion) returns (MsgDeleteCompletionResponse);
+  rpc CreateTask(MsgCreateTask) returns (MsgCreateTaskResponse);
+  rpc UpdateTask(MsgUpdateTask) returns (MsgUpdateTaskResponse);
+  rpc DeleteTask(MsgDeleteTask) returns (MsgDeleteTaskResponse);
+}
+
+// this line is used by starport scaffolding # proto/tx/message
+message MsgCreateCompletion {
+  string creator = 1;
+  int32 taskID = 2;
+  string imageURL = 3;
+  string imageHash = 4;
+  string status = 5;
+}
+
+message MsgCreateCompletionResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateCompletion {
+  string creator = 1;
+  uint64 id = 2;
+  int32 taskID = 3;
+  string imageURL = 4;
+  string imageHash = 5;
+  string status = 6;
+}
+
+message MsgUpdateCompletionResponse { }
+
+message MsgDeleteCompletion {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteCompletionResponse { }
+
+message MsgCreateTask {
+  string creator = 1;
+  string title = 2;
+  string description = 3;
+  int32 prize = 4;
+  string startedAt = 5;
+  string endedAt = 6;
+}
+
+message MsgCreateTaskResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateTask {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3;
+  string description = 4;
+  int32 prize = 5;
+  string startedAt = 6;
+  string endedAt = 7;
+}
+
+message MsgUpdateTaskResponse { }
+
+message MsgDeleteTask {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteTaskResponse { }
